@@ -25,7 +25,7 @@ export default {
         displayStart: 1,
         displayLength: 40,
       }).then(res => {
-        console.log(res)
+        console.table(res.data.data)
         this.list = res.data.data
       })
     }

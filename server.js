@@ -1,12 +1,9 @@
-// const createApp = require('./src/app')
+const fs = require('fs')
 const express = require('express')
 const favicon = require('serve-favicon')
-const fs = require('fs')
-const template = fs.readFileSync('./src/index.template.html', 'utf-8')
 const { createBundleRenderer } = require('vue-server-renderer')
 const { resolve } = require('path')
 const app = express()
-
 const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
@@ -15,14 +12,15 @@ function createRenderer(bundle, options) {
   return createBundleRenderer(
     bundle,
     Object.assign(options, {
-      basedir: resolve('./dist'), //显式地声明 server bundle 的运行目录。
-      runInNewContext: false,
+      basedir: resolve('./dist'), //显式地声明 server bundle 的运行目录。运行时将会以此目录为基准来解析 node_modules 中的依赖模块。
+      runInNewContext: false, //bundle 代码将与服务器进程在同一个 global 上下文中运行
     })
   )
 }
+/** */
 let renderer, readyPromise
+const template = fs.readFileSync('./src/index.template.html', 'utf-8')
 const templatePath = resolve('./src/index.template.html')
-
 const isProd = process.env.NODE_ENV === 'production'
 if (isProd) {
   const serverBundle = require('./dist/vue-ssr-server-bundle.json')
