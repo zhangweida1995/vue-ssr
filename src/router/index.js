@@ -11,12 +11,20 @@ export function createRoute() {
     routes: [
       {
         path: '/',
-        redirect: '/home',
+        redirect: '/list',
+      },
+      {
+        path: '/list',
+        name: 'list',
+        component: () => import('../page/list.vue'),
+        meta: {
+          title: 'list',
+        },
       },
       {
         path: '/home',
         name: 'home',
-        component: () => import('../page/layout.vue'),
+        component: () => import('../page/home.vue'),
         meta: {
           title: 'home',
         },
@@ -27,14 +35,6 @@ export function createRoute() {
         component: () => import('../page/about.vue'),
         meta: {
           title: 'about',
-        },
-      },
-      {
-        path: '/list',
-        name: 'list',
-        component: () => import('../page/list.vue'),
-        meta: {
-          title: 'list',
         },
       },
     ],

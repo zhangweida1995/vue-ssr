@@ -1,17 +1,18 @@
 <template>
-  <div>
-    <p v-for="(item,i) in list "
-       :key="Math.random()+''+i">
-      <span>{{item.id}}</span>
-      <span>{{item.name}}</span>
-    </p>
+  <div class="list">
+    <h2>List</h2>
+    <ig-table :data-list="list"></ig-table>
   </div>
 </template>
 
 <script>
+import igTable from '@/components/table.vue'
 export default {
   asyncData ({ store, route }) {
     return store.dispatch('fetchItem')
+  },
+  components: {
+    igTable
   },
   computed: {
     // 从 store 的 state 对象中的获取 item。
@@ -22,5 +23,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
+.list {
+  width: 100%;
+  text-align: center;
+}
 </style>

@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <img alt="Vue logo"
+         class="vue-logo"
          :src="logo">
-    <header>
+    <header class="header">
       <template>
         <router-link v-for="item in getMenuRoute"
                      :key="item.name"
@@ -39,9 +40,17 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #app {
   text-align: center;
+}
+.vue-logo {
+  width: 60px;
+  height: 60px;
+}
+.header {
+  background: #ececec;
+  padding: 20px 0;
 }
 a {
   margin-right: 1em;

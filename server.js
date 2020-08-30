@@ -1,5 +1,6 @@
 // const createApp = require('./src/app')
 const express = require('express')
+const favicon = require('serve-favicon')
 const fs = require('fs')
 const template = fs.readFileSync('./src/index.template.html', 'utf-8')
 const { createBundleRenderer } = require('vue-server-renderer')
@@ -47,10 +48,9 @@ const serve = (path, cache) => {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0,
   })
 }
+app.use(favicon('./public/logo.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
-app.use('/src/assets', serve('./src/assets', true))
-app.use('/manifest.json', serve('./manifest.json', true))
 
 function render(req, res) {
   const s = Date.now()

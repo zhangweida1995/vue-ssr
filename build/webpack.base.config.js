@@ -48,6 +48,14 @@ module.exports = {
         },
       },
       {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'fonts/[name].[hash:7].[ext]',
+        },
+      },
+      {
         // 如果你想从 JavaScript 中导入 CSS，例如，import 'foo.css'，你需要配置合适的 loader
         test: /\.(css|scss|less)$/,
         use: isProd
