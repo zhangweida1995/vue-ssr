@@ -8,21 +8,9 @@ const { app, router, store } = createApp()
 if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__)
 }
-Vue.mixin({
-  beforeMount() {
-    const { asyncData } = this.$options
-    if (asyncData) {
-      // 将获取数据操作分配给 promise
-      // 以便在组件中，我们可以在数据准备就绪后
-      // 通过运行 `this.dataPromise.then(...)` 来执行其他任务
-      this.dataPromise = asyncData({
-        store: this.$store,
-        route: this.$route,
-      })
-    }
-  },
-})
-//  App.vue 模板中根元素具有 `id="app"`
+// 客户端预取数据：
+
+//1、 在路由导航之前解析数据：
 router.onReady(() => {
   // 添加路由钩子函数，用于处理 asyncData.
   // 在初始路由 resolve 后执行，
@@ -37,12 +25,10 @@ router.onReady(() => {
     const activeted = matched.filter((c, i) => {
       return diffed || (diffed = prevMatched[i] !== c)
     })
-
     if (!activeted.length) {
       return next()
     }
 
-    // 这里如果有加载指示器 (loading indicator)，就触发
     Promise.all(
       activeted.map((c) => {
         if (c.asyncData) {
@@ -51,10 +37,24 @@ router.onReady(() => {
       })
     )
       .then(() => {
-        // 停止加载指示器
         next()
       })
       .catch(next)
   })
   app.$mount('#app')
 })
+// 2  匹配要渲染的视图后，再获取数据
+// Vue.mixin({
+//   beforeMount() {
+//     const { asyncData } = this.$options
+//     if (asyncData) {
+//       // 将获取数据操作分配给 promise
+//       // 以便在组件中，我们可以在数据准备就绪后
+//       // 通过运行 `this.dataPromise.then(...)` 来执行其他任务
+//       this.dataPromise = asyncData({
+//         store: this.$store,
+//         route: this.$route,
+//       })
+//     }
+//   },
+// })

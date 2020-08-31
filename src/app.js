@@ -14,7 +14,7 @@ Vue.mixin(titleMixin)
 axios.defaults.baseURL = 'http://test.api.iglobalwin.com/'
 axios.interceptors.request.use(
   function(config) {
-    config.headers.Authorization = '267482bb42ad40719f7ec8788d6c962e'
+    config.headers.Authorization = 'fa2601a4ff624330aab83301798820a5'
     return config
   },
   function(error) {

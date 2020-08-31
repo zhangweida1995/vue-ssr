@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import igTable from '@/components/table.vue'
-
+// import igTable from '@/components/table.vue'
+const igTable = () => import('@/components/table.vue')
 export default {
   components: {
     igTable
@@ -25,7 +25,6 @@ export default {
         displayStart: 1,
         displayLength: 40,
       }).then(res => {
-        console.table(res.data.data)
         this.list = res.data.data
       })
     }

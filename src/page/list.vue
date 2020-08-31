@@ -21,11 +21,6 @@ export default {
     }
   },
   mounted () {
-    console.log(1)
-    this.dataPromise.then(res => {
-      console.log(2)
-
-    })
   }
 }
 </script>

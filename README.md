@@ -27,3 +27,14 @@ npm run start
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+src
+│
+├── App.vue
+├── app.js # 通用 entry
+├── router
+│ ├── index.js
+├── store
+│ ├── index.js
+├── entry-client.js # 仅运行于浏览器
+└── entry-server.js # 仅运行于服务器

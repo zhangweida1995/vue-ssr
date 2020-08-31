@@ -7,9 +7,11 @@ import createApp from './app.js'
 export default (context) => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp()
+    // 设置当前路由，
     router.push(context.url)
     // 路由器必须要提前解析路由配置中的异步组件，才能正确地调用组件中可能存在的路由钩子
     router.onReady(() => {
+      // 根据当前路由获取匹配的组件
       const matchedComponents = router.getMatchedComponents()
       if (!matchedComponents.length) {
         return reject({ code: 404 })
@@ -33,6 +35,7 @@ export default (context) => {
           // 并且 `template` 选项用于 renderer 时，
           // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
           context.state = store.state
+
           resolve(app)
         })
         .catch(reject)
